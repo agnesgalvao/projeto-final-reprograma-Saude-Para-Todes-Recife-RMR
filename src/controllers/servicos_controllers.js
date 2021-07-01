@@ -11,6 +11,10 @@ const Servicos = servicos.find({},{criadoPor: 0})
 
 
 
+        res.status(200).json( Servicos)
+
+
+
 
 
 }
