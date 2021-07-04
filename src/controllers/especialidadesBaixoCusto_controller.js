@@ -32,13 +32,13 @@ const cadastrarProfissional = async (req, res) => {
         _id: new mongoose.Types.ObjectId(),
         'nomeProfissional': req.body.NomeProfissional,
         'especialidade': req.body.especialidade,
-        'estado': req.body.estado,
         'cidade': req.body.cidade,
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
         'horarioFuncionamento': req.body.horarioFuncionamento,
         'telefone': req.body.telefone,
+        'atendimentoOnline': req.body.atendimentoOnline,
         'observacoes': req.body.observacoes,
         'criadoPor': req.body.criadoPor
        
@@ -81,13 +81,10 @@ const profissionaisPorCidadeEspecialidade = async (req, res) => {
 
 
         try{
-            const   profissionaisEstado = await especialidadesBaixoCusto.find({ estado: req.body.estado })
+            const   profissionaisCidade= await especialidadesBaixoCusto.find({ estado: req.body.cidade })
             const especialidade = req.body.especialidade.toLowerCase()
 
 
-            if (profissionaisEstado) {
-
-                const profissionaisCidade = profissionaisEstado.filter( profissional => profissional.cidade == req.body.cidade)
     
                 if (profissionaisCidade) {
 
@@ -105,12 +102,6 @@ const profissionaisPorCidadeEspecialidade = async (req, res) => {
     
     
     
-            } else {
-    
-                res.status(404).json({ message: 'nenhum profissional encontrado' })
-    
-    
-            }
 
 
 
@@ -231,10 +222,18 @@ const updateProfissional = async (req, res)=>{
 
                   if( req.body.bairro != null){   profissional.bairro = req.body.bairro}
 
+
                  if(req.body.logradouro != null ) { profissional.logradouro = req.body.logradouro}
                  if( req.body.numero  != null ){profissional.numero =  req.body.numero}
                  if ( req.body.horarioFuncionamento != null ){ profissional.horarioFuncionamento = req.body.horarioFuncionamento}
                  if( req.body.telefone != null){   profissional.telefone = req.body.telefone}
+                 if (req.body.atendimentoOnline != null ){
+
+
+
+                    ambulatorio.atendimentoOnline = req.body.atendimentoOnline
+ 
+                 }
                  if( req.body.observacoes != null ){ profissional.observacoes = req.body.observacoes}
 
              
@@ -275,8 +274,8 @@ module.exports ={
     cadastrarProfissional, 
     profissionaisCadastradosPorUsuario, 
     updateProfissional,
-     deletarProfissional,
-     profissionaisPorCidadeEspecialidade
+    deletarProfissional,
+    profissionaisPorCidadeEspecialidade
     
 
 

@@ -38,11 +38,6 @@ const userSchema = new mongoose.Schema  (
 
 
         }, 
-       estado:{
-            type: String,
-            required: true,
-
-        },
     
         cidade:{
             type: String,

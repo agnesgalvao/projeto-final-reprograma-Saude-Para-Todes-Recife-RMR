@@ -26,13 +26,13 @@ const cadastrarServico = async (req, res) => {
         _id: new mongoose.Types.ObjectId(),
         'nome': req.body.nome,
         'tipoDeServico': req.body.tipoDeServico,
-        'estado': req.body.estado,
         'cidade': req.body.cidade,
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
         'horarioFuncionamento': req.body.horarioFuncionamento,
         'telefone': req.body.telefone,
+        'atendimentoOnline': req.body.atendimentoOnline,
         'observacoes': req.body.observacoes,
         'criadoPor': req.body.criadoPor
     }
@@ -80,28 +80,30 @@ const listarServicosPorCidade = async (req, res)=>{
 
    try{   
        
-    const servicosEstado = Servicos.filter(servico => servico.estado == estado)
+    const servicosCidade = Servicos.filter(servico => servico.cidade == cidade)
  
-            if ( servicosEstado){
+            if ( servicosCidade){
 
-                const servicosFiltrados = servicosEstado.filter( servicos => servicos.cidade == cidade)     
+                const servicosFiltrados = listarServicosPorCidade.filter( servicos => servicos.cidade == cidade)     
                 
 
                 
     if(servicosFiltrados ){
+
+
       res.status(200).json(servicosFiltrados)
 
 
       
 
-  }else{   res.status(401).json({message: "nenhum serviço disponivel"})  }
+     }else{   res.status(401).json({message: "nenhum serviço disponivel"})  }
 
 
 
 
                   
 
-            }    
+            }else{ res.status(401).json({message: "nenhum serviço disponivel"})}   
 
 
 
@@ -219,6 +221,15 @@ const listarServicosPorCidade = async (req, res)=>{
                 servico.telefone =   req.body.telefone
 
               }
+
+
+              if (req.body.atendimentoOnline != null ){
+
+
+
+                ambulatorio.atendimentoOnline = req.body.atendimentoOnline
+
+             }
 
                     if( req.body.observacoes != null){
 
@@ -346,6 +357,14 @@ const listarServicosPorCidade = async (req, res)=>{
                 servico.telefone =   req.body.telefone
 
               }
+
+              if (req.body.atendimentoOnline != null ){
+
+
+
+                ambulatorio.atendimentoOnline = req.body.atendimentoOnline
+
+             }
 
                     if( req.body.observacoes != null){
 

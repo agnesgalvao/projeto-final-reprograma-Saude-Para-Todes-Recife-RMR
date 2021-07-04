@@ -15,11 +15,7 @@ const especialidadesBaixoCustoSchema = new mongoose.Schema  (
                type: String,
                required: true
     },
-    estado:{
-        type: String,
-    required: true
-
-    },
+    
 
     cidade:{
         type: String,
@@ -60,6 +56,11 @@ const especialidadesBaixoCustoSchema = new mongoose.Schema  (
         required: true,
 
     },
+    antendimentoOnline:{
+        type: String,
+        required:true,
+
+},
     criadoPor:{
         type: String,
         required:true,

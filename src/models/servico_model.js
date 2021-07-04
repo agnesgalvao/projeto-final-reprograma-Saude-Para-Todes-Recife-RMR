@@ -18,11 +18,7 @@ const servicoSchema = new mongoose.Schema  (
           required: true
   
           },
-          estado:{
-            type: String,
-        required: true
-
-        },
+        
   
           cidade:{
             type: String,
@@ -68,6 +64,11 @@ const servicoSchema = new mongoose.Schema  (
             required:true,
         
         },
+        antendimentoOnline:{
+            type: String,
+            required:true,
+
+   },
         observacoes:{
             type: String,
             required:false,

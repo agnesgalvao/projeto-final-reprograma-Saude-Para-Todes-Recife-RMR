@@ -25,7 +25,6 @@ const cadastrarAmbulatorio = async (req, res) => {
     const ambulatorio = new ambulatorios({
         _id: new mongoose.Types.ObjectId(),
         'nome': req.body.nome,
-        'estado': req.body.estado,
         'cidade': req.body.cidade,
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
@@ -33,6 +32,7 @@ const cadastrarAmbulatorio = async (req, res) => {
         'horarioFuncionamento': req.body.horarioFuncionamento,
         'telefone': req.body.telefone,
         'especialidades': req.body.especialidades,
+        'atendimentoOnline': req.body.atendimentoOnline,
         'observacoes': req.body.observacoes,
         'criadoPor': req.body.criadoPor
     }
@@ -86,18 +86,16 @@ const buscarEspecialidade = async (req, res) => {
     try {
 
 
-        const ambulatoriosEstado = await ambulatorios.find({ estado: req.body.estado })
-        const cidade = req.body.cidade
+        const ambulatoriosCidade = await ambulatorios.find({ estado: req.body.cidade })
         const especialidade = req.body.especialidade.toLowerCase()
 
-        if (ambulatoriosEstado) {
 
-            const ambulatoriosCidade = ambulatoriosEstado.filter(ambulatorio => ambulatorio.cidade == cidade)
+           
 
-            if (cidade) {
+            if (ambulatoriosCidade) {
 
 
-                const especialidadeFiltrada  = ambulatoriosCidade.filter(ambulatorios => ambulatorios.especialidadesspecialidades.includes(especialidade))
+                const especialidadeFiltrada  = ambulatoriosCidade.filter(ambulatorios => ambulatorios.especialidades.includes(especialidade))
                   
                 if( especialidadeFiltrada){
                     res.status(200).json(especialidadeFiltrada)
@@ -110,12 +108,7 @@ const buscarEspecialidade = async (req, res) => {
 
 
 
-        } else {
-
-            res.status(404).json({ message: 'nenhum ambulatorio encontrado' })
-
-
-        }
+        
 
 
 
@@ -289,6 +282,13 @@ const atualizarAmbulatorio = async ( req, res) =>{
 
                     ambulatorio.telefone =  req.body.telefone
                 }
+                if (req.body.atendimentoOnline != null ){
+
+
+
+                    ambulatorio.atendimentoOnline = req.body.atendimentoOnline
+ 
+                 }
 
 
                 if (req.body.observacoes != null ){
@@ -420,7 +420,13 @@ const atualizarAmbulatorioPorId = async ( req, res) =>{
 
                ambulatorio.telefone =  req.body.telefone
            }
+           if (req.body.atendimentoOnline != null ){
 
+
+
+            ambulatorio.atendimentoOnline = req.body.atendimentoOnline
+
+         }
 
            if (req.body.observacoes != null ){
 
