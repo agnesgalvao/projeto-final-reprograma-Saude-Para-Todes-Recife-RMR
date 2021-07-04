@@ -13,6 +13,7 @@ db.connect()
 const servicos = require('./routes/servicos_routes')
 const ambulatorios = require('./routes/ambulatorios_routes')
 const especialidadesBaixoCusto = require('./routes/especialidadeBaixoCustoRoutes')
+const index = require('./routes/index')
 
 
 app.use(function (req, res, next) {
@@ -24,7 +25,7 @@ app.use(function (req, res, next) {
     next()
     })
 
-
+app.use('/', index)
 app.use('/usuarios', usuarios)
 app.use('/ambulatorios', ambulatorios)
 app.use('/especialidadesBaixoCusto', especialidadesBaixoCusto)
