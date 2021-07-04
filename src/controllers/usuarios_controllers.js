@@ -213,7 +213,9 @@ const login = async (req, res) =>{
        
 
        const atualizarUsuario = async (req, res)=>{
-       
+
+        senhaAtual = req.body.senhaAtual
+        novaSenha =  req.body.senha    
        
 
 
@@ -224,19 +226,20 @@ const login = async (req, res) =>{
                     res.status(404).json( {message: 'email invalido'})
                 }
 
-                 if ( req.body.senhaAtual != null && req.body.senha){
+                 if ( senhaAtual != null && novaSenha != null){
 
                   
-                        bcrypt.compareSync (req.body.senhaAtual, usuario.senha, (err, result) => {
+                        bcrypt.compareSync(senhaAtual, novaSenha, (err, result) => {
 
                             if (result){    
                                 
                                 
-                                usuario.senha = bcrypt.hashSync(req.body.senha, salt, process.env.TEXTPASSWORD)
+                                usuario.senha = bcrypt.hashSync( novaSenha, salt, process.env.TEXTPASSWORD)
                               
                             }
 
-                            if (err){  res.status(401).json( {message: 'senha incorreta'})                
+                            if (err){  res.status(401).json( {message: 'senha incorreta'}) 
+
                         }
 
                         }
@@ -245,13 +248,7 @@ const login = async (req, res) =>{
                               
                           ) 
 
-                            
-                         
-    
-                            
-                        
-        
-        
+  
                            
                     
 
