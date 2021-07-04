@@ -3,7 +3,7 @@
 
 <h1> Saúde para todes Recife e RMR</h1>
 
-<P>O projeto saúde para todes Recife e RMR foi criado com o objetivo de auxiliar pessoas LGBT+ de todo Brasil 
+<P>O projeto saúde para todes Recife e RMR foi criado com o objetivo de auxiliar pessoas LGBT+ de Rcife e RMR 
 a encontrarem ambulátorios do SUS e profissionais de baixo custo especializados no atendimento desta população, além de auxiliar também 
 na busca por serviços de assistência social e jurídica gratuitos. O projeto irá permitir que a própria comunidade alimente a base de dados cadastrando novos serviços, ambulátorios e profissionais de saúde.</P>
 
