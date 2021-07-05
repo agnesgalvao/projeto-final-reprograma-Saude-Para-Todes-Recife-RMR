@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
 const smtpTransport = require('nodemailer-smtp-transport')
-const cidades = require('../ultils/cidadesUltils')
+const Cidades = require('../ultils/cidadesUltils')
 
 const salt = bcrypt.genSaltSync(10)
 
@@ -85,7 +85,7 @@ const cadastrarUsuario = async (req, res)=>{
 
 
 
-            if(  cidades.includes(cidade.toLowerCase()) ){
+            if(  Cidades.cidades.includes(cidade.toLowerCase()) ){
 
                 try{  const novoUsuario = await user.save()
                     res.status(201).json(novoUsuario)
