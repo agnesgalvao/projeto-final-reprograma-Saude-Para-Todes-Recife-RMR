@@ -69,19 +69,17 @@ const cadastrarUsuario = async (req, res)=>{
    criadoEm: req.body.criadoEm
     })
 
-    const exclude=/[^@-.w]|^[_@.-]|[._-]{2}|[@.]{2}|(@)[^@]*1/
-    const check=/@[w-]+./
-    const checkend=/.[a-zA-Z]{2,3}$/
+    const verificarEmail = /^([a-zA-Z][^<>\"!@[\]#$%¨&*()~^:;ç,\-´`=+{}º\|/\\?]{1,})@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 
-    if(((email.search(exclude) != -1)||(email.search(check)) == -1)||(email.search(checkend) == -1))
-    {return res.status(400).json("error: email invalido") }
+    if( verificarEmail.test(String(email).toLowerCase()))
+    { res.status(400).json("error: email invalido") }
     else {
-        const verificacao = await usuarios.findOne( {email:req.body.email })
+        const verificacao = await usuarios.findOne( {email: email })
         if(verificacao){
         
         
-        return res.status(409).json("error: usuario já cadastrado")
+        res.status(409).json("error: usuario já cadastrado")
         
         
         }else{
@@ -101,7 +99,7 @@ const cadastrarUsuario = async (req, res)=>{
                     }
                     
 
-            }else{ return res.status(400).json("error: a cidade não faz parte do área abrangente") }
+            }else{ res.status(400).json("error: a cidade não faz parte do área abrangente") }
 
          
 
