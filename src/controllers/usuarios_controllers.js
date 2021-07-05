@@ -73,8 +73,7 @@ const cadastrarUsuario = async (req, res)=>{
 
 
     if( verificarEmail.test(String(email).toLowerCase()))
-    { res.status(400).json("error: email invalido") }
-    else {
+   {
         const verificacao = await usuarios.findOne( {email: email })
         if(verificacao){
         
@@ -108,7 +107,7 @@ const cadastrarUsuario = async (req, res)=>{
 
 
 
-    }
+    }else { res.status(400).json("error: email invalido") }
 
 
 
