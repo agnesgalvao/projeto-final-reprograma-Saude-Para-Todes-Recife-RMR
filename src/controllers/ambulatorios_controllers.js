@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 
 const ambulatorios = require('../models/ambulatorio_model')
+const Cidades = require('../ultils/cidadesUltils')
 
 
 require('dotenv').config()
@@ -49,20 +50,26 @@ const cadastrarAmbulatorio = async (req, res) => {
 
     } else {
 
+        if(Cidades.includes(cidade.toUpperCase())){
+
+            try {
+                const novoAmbulatorio = await ambulatorio.save()
+                res.status(201).json(novoAmbulatorio)
+    
+    
+            } catch (err) {
+    
+                res.status(500).json({ message: err.message })
+    
+            }
+    
+    
+
+        }else{     res.status(400).json("error: a cidade não faz parte do área abrangente")}
 
 
-        try {
-            const novoAmbulatorio = await ambulatorio.save()
-            res.status(201).json(novoAmbulatorio)
 
-
-        } catch (err) {
-
-            res.status(500).json({ message: err.message })
-
-        }
-
-
+     
 
 
 

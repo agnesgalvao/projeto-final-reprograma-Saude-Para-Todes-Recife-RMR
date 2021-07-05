@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const especialidadesBaixoCusto = require('../models/especialidadesBaixoCusto')
+const Cidades = require('../ultils/cidadesUltils')
 
 
 
@@ -48,6 +49,7 @@ const cadastrarProfissional = async (req, res) => {
 
 
 
+    if( Cidades.includes(cidade.toUpperCase())){
 
         try {
             const novoProfissional = await profissional.save()
@@ -60,6 +62,14 @@ const cadastrarProfissional = async (req, res) => {
 
         }
 
+
+
+    }else{     res.status(400).json("error: a cidade não faz parte do área abrangente")     }
+
+
+
+
+     
 
 
 
@@ -154,11 +164,11 @@ const profissionaisCadastradosPorUsuario = async(req, res) => {
 
 const deletarProfissional = async(req, res) => {
   
-    const nomeProfissional = req.body.nomeProfissional
+    const id = req.body.id
 
 
     try{       
-        const profissional = await especialidadesBaixoCusto.findByOne(nomeProfissional)
+        const profissional = await especialidadesBaixoCusto.findById(id)
 
         
 
@@ -186,7 +196,7 @@ const updateProfissional = async (req, res)=>{
 
 
 
-    const profissional = req.body.nomeProfissional
+    const id = req.body.id
 
 
 
@@ -194,7 +204,7 @@ const updateProfissional = async (req, res)=>{
 
 
     try{       
-        const profissional = await especialidadesBaixoCusto.findByOne(nomeProfissional)
+        const profissional = await especialidadesBaixoCusto.findById(id)
 
 
         

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 const servicos = require('../models/servico_model')
-
+const Cidades = require('../ultils/cidadesUltils')
 
 
 
@@ -22,12 +22,12 @@ const Servicos = await servicos.find({},{criadoPor: 0})
 
 
 const cadastrarServico = async (req, res) => {
-
+       const cidade = req.body.cidade
     const servico = new servicos ({
         _id: new mongoose.Types.ObjectId(),
         'nome': req.body.nome,
         'tipoDeServico': req.body.tipoDeServico,
-        'cidade': req.body.cidade,
+        'cidade': cidade,
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
@@ -39,7 +39,7 @@ const cadastrarServico = async (req, res) => {
     }
     )
 
-     const verificacao = await servicos.findOne({ nome: req.body.nome, cidade: req.body.cidade })
+     const verificacao = await servicos.findOne({ nome: req.body.nome, cidade: cidade})
 
     if (verificacao) {
 
@@ -49,18 +49,32 @@ const cadastrarServico = async (req, res) => {
 
     } else {
 
+      if(  Cidades.includes(cidade.toUpperCase())){
+
 
 
         try {
-            const  novoServico = await servico.save()
-            res.status(201).json(novoServico)
+          const  novoServico = await servico.save()
+          res.status(201).json(novoServico)
 
 
-        } catch (err) {
+      } catch (err) {
 
-            res.status(500).json({ message: err.message })
+          res.status(500).json({ message: err.message })
 
-        }
+      }
+
+
+
+      }else{
+
+
+        res.status(400).json("error: a cidade não faz parte do área abrangente")
+
+      }
+
+
+
 
 
 
