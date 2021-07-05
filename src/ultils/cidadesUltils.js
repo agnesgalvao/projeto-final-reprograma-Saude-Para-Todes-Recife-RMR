@@ -1,7 +1,7 @@
 
 
 
-const cidades = ["Abreu e Lima" ," Araçoiaba","Cabo de Santo Agostinho" , "Camaragibe", "Igarassu", "Ilha de Itamaracá", "Ipojuca", "Itapissuma", "Jaboatão dos Guararapes", "Moreno","Olinda" , "Paulista","Recife" ,"São Lourenço da Mata "]
+const cidades = ["ABREU E LIMA" ," ARAÇOIABA","CABO DE SANTO AGOSTINHO" , "CAMARAGIBE", "IGARASSU", "ILHA DE ITAMARACÁ", "IPOJUCA", "ITAPISSUMA", "JABOATÃO DOS GRARARAPES", "MORENO","OLINDA" , "PAULISTA","RECIFE" ,"SÃO LORENÇO DA MATA"]
 
 
 
