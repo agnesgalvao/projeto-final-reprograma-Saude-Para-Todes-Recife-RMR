@@ -22,11 +22,12 @@ const getAll = async(req, res)=>{
 
 
 const cadastrarAmbulatorio = async (req, res) => {
+    const cidade = req.body.cidade
 
     const ambulatorio = new ambulatorios({
         _id: new mongoose.Types.ObjectId(),
         'nome': req.body.nome,
-        'cidade': req.body.cidade,
+        'cidade': cidade,
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
@@ -65,7 +66,7 @@ const cadastrarAmbulatorio = async (req, res) => {
     
     
 
-        }else{     res.status(400).json("error: a cidade não faz parte do área abrangente")}
+        }else{  res.status(400).json("error: a cidade não faz parte do área abrangente")}
 
 
 

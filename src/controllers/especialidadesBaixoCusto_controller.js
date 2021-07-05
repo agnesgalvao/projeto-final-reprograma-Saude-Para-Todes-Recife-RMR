@@ -28,12 +28,14 @@ const getAll = async (req, res) => {
 
 
 const cadastrarProfissional = async (req, res) => {
+    const cidade = req.body.cidade
+
 
     const profissional = new especialidadesBaixoCusto ({
         _id: new mongoose.Types.ObjectId(),
         'nomeProfissional': req.body.NomeProfissional,
         'especialidade': req.body.especialidade,
-        'cidade': req.body.cidade,
+        'cidade': cidade,
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
