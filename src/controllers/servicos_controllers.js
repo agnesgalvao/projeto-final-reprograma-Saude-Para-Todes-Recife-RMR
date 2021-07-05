@@ -5,6 +5,7 @@ const servicos = require('../models/servico_model')
 
 
 
+
 const getAll = async (req, res) =>{
 
 const Servicos = await servicos.find({},{criadoPor: 0})

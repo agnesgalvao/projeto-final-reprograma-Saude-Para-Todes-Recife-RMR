@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
 const smtpTransport = require('nodemailer-smtp-transport')
+const cidades = require('../ultils/cidadesUltils')
 
 const salt = bcrypt.genSaltSync(10)
 
@@ -50,47 +51,67 @@ const Usuarios = async ( req, res) =>{
 
 const cadastrarUsuario = async (req, res)=>{
            
-    Senha = req.body.senha
-    const  senhaParaSalvar = bcrypt.hashSync(Senha, salt, process.env.TEXTPASSWORD)
+   
+    const  senhaParaSalvar = bcrypt.hashSync(req.body.senha, salt, process.env.TEXTPASSWORD)
+    const email = req.body.email
+    const cidade = req.body.cidade
    
 
     const user = new usuarios ({
  _id: new mongoose.Types.ObjectId(),
     nome: req.body.nome,
-   email : req.body.email,
+   email : email,
    identidade: req.body.identidade,
    genero: req.body.genero, 
    sexualidade: req.body.sexualidade,
-   cidade: req.body.cidade,
+   cidade: cidade,
    senha:  senhaParaSalvar,
    criadoEm: req.body.criadoEm
     })
 
-const verificacao = await usuarios.findOne( {email:req.body.email })
-if(verificacao){
+    const exclude=/[^@-.w]|^[_@.-]|[._-]{2}|[@.]{2}|(@)[^@]*1/
+    const check=/@[w-]+./
+    const checkend=/.[a-zA-Z]{2,3}$/
 
 
-return res.status(409).json("error: usuario já cadastrado")
-
-
-}else if (req.body.email.includes('@') && req.body.email.includes('.')){
-
-
-    try{  const novoUsuario = await user.save()
-        res.status(201).json(novoUsuario)
+    if(((email.search(exclude) != -1)||(email.search(check)) == -1)||(email.search(checkend) == -1))
+    {return res.status(400).json("error: email invalido") }
+    else {
+        const verificacao = await usuarios.findOne( {email:req.body.email })
+        if(verificacao){
         
         
-        }catch(err){
+        return res.status(409).json("error: usuario já cadastrado")
         
-               res.status(500).json( {message: err.message})
         
+        }else{
+
+
+
+            if(  cidades.includes(cidade.toLowerCase()) ){
+
+                try{  const novoUsuario = await user.save()
+                    res.status(201).json(novoUsuario)
+                    
+                    
+                    }catch(err){
+                    
+                           res.status(500).json( {message: err.message})
+                    
+                    }
+                    
+
+            }else{ return res.status(400).json("error: a cidade não faz parte do área abrangente") }
+
+         
+
+
         }
-        
-        
-        
-        
-        }else{  return res.status(400).json("error: email invalido")               }
-        
+
+
+
+    }
+
 
 
 }
