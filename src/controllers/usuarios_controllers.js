@@ -85,7 +85,7 @@ const cadastrarUsuario = async (req, res)=>{
 
 
 
-            if(  Cidades.cidades.includes(cidade.toLowerCase()) ){
+            if( Cidades.includes(cidade) ){
 
                 try{  const novoUsuario = await user.save()
                     res.status(201).json(novoUsuario)
