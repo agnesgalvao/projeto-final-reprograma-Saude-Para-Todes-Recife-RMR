@@ -14,7 +14,7 @@ const servicoSchema = new mongoose.Schema  (
       },
   
         tipoDeServico : {
-              type: String,
+              type: Array,
           required: true
   
           },
