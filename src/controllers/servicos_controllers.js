@@ -95,11 +95,9 @@ const listarServicosPorCidade = async (req, res)=>{
 
    try{   
        
-    const servicosCidade = Servicos.filter(servico => servico.cidade == cidade)
- 
-            if ( servicosCidade){
+   
 
-                const servicosFiltrados = servicosCidade.filter( servicos => servicos.cidade == cidade)     
+                const servicosFiltrados =  Servicos.filter( servicos => servicos.cidade == cidade.toLowerCase())     
                 
 
                 
@@ -117,8 +115,6 @@ const listarServicosPorCidade = async (req, res)=>{
 
 
                   
-
-            }else{ res.status(401).json({message: "nenhum serviço disponivel"})}   
 
 
 
