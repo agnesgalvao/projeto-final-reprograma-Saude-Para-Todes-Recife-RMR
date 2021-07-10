@@ -35,7 +35,7 @@ const cadastrarProfissional = async (req, res) => {
         _id: new mongoose.Types.ObjectId(),
         'nomeProfissional': req.body.NomeProfissional,
         'especialidade': req.body.especialidade,
-        'cidade': cidade,
+        'cidade': cidade.toLowerCase(),
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
@@ -88,12 +88,12 @@ const cadastrarProfissional = async (req, res) => {
 
 const profissionaisPorCidadeEspecialidade = async (req, res) => {
 
-
+const cidade =req.body.cidade 
     
 
 
         try{
-            const   profissionaisCidade= await especialidadesBaixoCusto.find({ estado: req.body.cidade })
+            const   profissionaisCidade= await especialidadesBaixoCusto.find({ cidade: cidade.toLowerCase() })
             const especialidade = req.body.especialidade.toLowerCase()
 
 
