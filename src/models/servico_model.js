@@ -64,7 +64,7 @@ const servicoSchema = new mongoose.Schema  (
             required:true,
         
         },
-        antendimentoOnline:{
+        atendimentoOnline:{
             type: String,
             required:true,
 

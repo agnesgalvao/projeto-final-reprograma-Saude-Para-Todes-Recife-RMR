@@ -27,7 +27,7 @@ const cadastrarServico = async (req, res) => {
         _id: new mongoose.Types.ObjectId(),
         'nome': req.body.nome,
         'tipoDeServico': req.body.tipoDeServico,
-        'cidade': cidade,
+        'cidade': cidade.toLowerCase(),
         'bairro': req.body.bairro,
         'logradouro': req.body.logradouro,
         'numero': req.body.numero,
