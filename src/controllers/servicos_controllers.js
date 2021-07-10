@@ -99,7 +99,7 @@ const listarServicosPorCidade = async (req, res)=>{
  
             if ( servicosCidade){
 
-                const servicosFiltrados = listarServicosPorCidade.filter( servicos => servicos.cidade == cidade)     
+                const servicosFiltrados = servicosCidade.filter( servicos => servicos.cidade == cidade)     
                 
 
                 
