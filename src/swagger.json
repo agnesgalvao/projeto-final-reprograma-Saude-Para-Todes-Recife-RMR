@@ -577,7 +577,7 @@
                                                                 "type": "object",
                                                                 "properties":{
                                                                   
-                                                                    "email":{"type": "string",
+                                                                    "criadoPor":{"type": "string",
                                                                         "required": "true"}
                                                                        
                                                                     
@@ -586,7 +586,7 @@
                                                                 },
                                                                 "example":
                                                                     {
-                                                                        "email": "email do usuario"
+                                                                        "criadoPor": "email do usuario"
                                                                        
                                                                        
                                                                       }
@@ -974,7 +974,7 @@
                                                                             "type": "object",
                                                                             "properties":{
                                                                               
-                                                                                "email":{"type": "string",
+                                                                                "usuario":{"type": "string",
                                                                                     "required": "true"}
                                                                                    
                                                                                 
@@ -982,8 +982,9 @@
                                                                           
                                                                             },
                                                                             "example":
+                                                                            
                                                                                 {
-                                                                                    "email": "email do usuario"
+                                                                                    "usuario": "email do usuario"
                                                                                    
                                                                                    
                                                                                   }

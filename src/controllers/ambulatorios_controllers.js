@@ -151,13 +151,13 @@ const ambulatoriosPorCriador = async (req, res) => {
     try {
 
 
-        const ambulatorios = await ambulatorios.find({ criadoPor: req.body.criadoPor })
+        const Ambulatorios = await ambulatorios.find({ criadoPor: req.body.criadoPor })
         
 
-        if (ambulatorios) {
+        if (Ambulatorios) {
 
 
-                res.status(200).json(ambulatorios)
+                res.status(200).json(Ambulatorios)
 
 
 
