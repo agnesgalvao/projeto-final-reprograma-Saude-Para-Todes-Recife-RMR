@@ -31,7 +31,12 @@
                 "sumary": "Listar usuários",
                 "description": "Lista os usuários cadastrados",
                 "tags": ["usuarios"],
-                "security": [{"bearerAuth":[]}]
+                "security": [{"bearerAuth":[]}],
+                "responses":{
+                    "201":{"description": "ok"},
+                    "401":{"description": "Não autorizado"},
+                    "500":{"description": "erro do servidor"}
+                }
                
                 }
                 
@@ -448,9 +453,15 @@
                                 "get":{
                                     "sumary": "Listar ambulatórios",
                                     "description": "Lista os ambulatórios cadastrados",
-                                    "tags": ["ambulatorios"]
+                                    "tags": ["ambulatorios"],
+                                    "responses":{
+                                        "201":{"description": "ok"},
+                                        "500":{"description": "erro do servidor"}
+                                    }
+
                                    
                                     }
+                            
                                     
                                 },
                                 "/ambulatorios/cadastrar": {
@@ -842,7 +853,11 @@
                                             "get":{
                                                 "sumary": "Listar serviços",
                                                 "description": "Lista os serviços cadastrados",
-                                                "tags": ["servicos"]
+                                                "tags": ["servicos"],
+                                                "responses":{
+                                                    "201":{"description": "ok"},
+                                                    "500":{"description": "erro do servidor"}
+                                                }
                                                
                                                 }
                                                 
@@ -1232,7 +1247,11 @@
                                                                     "get":{
                                                                         "sumary": "Listar profissionais",
                                                                         "description": "Lista os profissionais cadastrados",
-                                                                        "tags": ["especialidades de baixo custo"]
+                                                                        "tags": ["especialidades de baixo custo"],
+                                                                        "responses":{
+                                                                            "201":{"description": "ok"},
+                                                                            "500":{"description": "erro do servidor"}
+                                                                        }
                                                                        
                                                                         }
                                                                         
