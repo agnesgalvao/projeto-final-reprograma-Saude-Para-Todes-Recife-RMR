@@ -217,7 +217,7 @@
                                       
                                         },
                                         "example":{
-                                            "id":"email so usuario",
+                                            "email":"email so usuario",
                                            "cidade":"nova cidade que usuario reside",
                                             "senhaAtual":"senha atual",
                                             "senha":"nova senha criada pelo usuario"
@@ -540,7 +540,7 @@
                                                                 {
                                                                     "cidade": "cidade em que busca atendimento",
                                                                    
-                                                                    "especialidades": "especialidades que procura"
+                                                                    "especialidade": "especialidades que procura"
                                                                   }
                     
                                                                     
