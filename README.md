@@ -1,4 +1,5 @@
 # projeto-final-reprograma-Saude-Para-Todes-Recife-RMR
+Se preferir acesse o link da documentação no swagger clicando [aqui](https://saude-para-todes-recife-rmr.herokuapp.com/api-doc)
 
 
 <h2> Saúde para todes Recife e RMR</h2><h6>V. 1.0.0</h6>
@@ -206,6 +207,12 @@ Modo produção: [https://saude-para-todes-recife-rmr.herokuapp.com]( https://sa
 | POST '/criadosPor' | {'usuario': 'email do usuário'} |  Baerer Token  | 200 (OK)<br> 401 (não autorizado)<br> 500 (erro no servidor)|
 | PATCH '/atualizar' |  {'nomeProfissional': 'nome do profissional', <br>'especialidade': 'especialidade do profissional de saúde', <br> 'cidade': 'cidade',<br> 'bairro': 'bairro', <br>'logradouro': 'logradouro',<br> 'numero': 'numero do endereço',<br>'horarioFuncionamento': 'horário de atendimento', <br> 'observações': 'observações são opcionais'} <br><h6>//O nome do profissional é obrigatório, dos demais, apenas os parâmetros que irão ser alterados<br> precisam ser enviados no body |  Baerer Token  | 200 (OK)<br> 401 (não autorizado)<br> 404 (profissional não encontrado)<br> 500 (erro no servidor)|
 | DELETE '/deletar' | {'nome': 'nome do profissional'} |  Baerer Token  | 200 (OK)<br> 401 (não autorizado)<br> 404 (profissional não encontrado)<br> 500 (erro no servidor)|
+ 
+
+ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ <h4>Contato pra dúvidas ou sugestões:</h4>
+ <h5>e-mail do projeto: saudeparatodesrecife@gmail.com<br>e-mail pessoal: agnesgalvao@gmail.com</h5>
+ <P>Sugestões e feedbacks são muito bem vindos!<p>
 
 
 
