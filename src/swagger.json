@@ -1,0 +1,1608 @@
+{"openapi": "3.0.0",
+  "info":{
+      "title": "Saúde para todes Recife e RMR",
+      "description": "O projeto saúde para todes Recife e RMR foi criado com o objetivo de auxiliar pessoas LGBT+ de Recife e região metropolitana de Recife a encontrarem ambulátorios do SUS e profissionais de baixo custo especializados no atendimento desta população, além de auxiliar também na busca por serviços de assistência social e jurídica gratuitos. O projeto irá permitir que a própria comunidade alimente a base de dados cadastrando novos serviços, ambulátorios e profissionais de saúde.<br><br>A idéia para o projeto surgiu após um diagnóstico realizado pelo coletivo #voteLGBT durante a pandemia, onde por meio de pesquisa foi identificada a dificuldade da população LGBT+ em localizar e acessar os serviços gratuitos e de baixo custo ofertados à está população.<br><br>Diante de tal exposto apresento esta ferramenta, com objetivo de torna-lá uma ponte entre as necessidades desta população e serviços viáveis, afim de contribuir para o acesso igualitário à saúde e outros direitos fundamentais.",
+      "contact": {"email": "saudeparatodesrecife@gmail.com"},
+      "version": "1.0.0"
+
+  },
+  "servers": [
+      {
+          "url": "http://localhost:3333",
+          "description": "API de Teste"
+
+
+      },
+      {
+        "url": "https://saude-para-todes-recife-rmr.herokuapp.com",
+        "description": "API de produção"
+
+
+    }
+    
+
+
+
+  ],
+  "paths":{
+
+    "/usuarios": {
+            "get":{
+                "sumary": "Listar usuários",
+                "description": "Lista os usuários cadastrados",
+                "tags": ["usuarios"],
+                "security": [{"bearerAuth":[]}]
+               
+                }
+                
+            },
+            "/usuarios/cadastrar": {
+                "post":{
+                    "sumary": "cadastrar usuários",
+                    "description": "cadastra um novo usuario",
+                    "tags": ["usuarios"],
+                    "responses":{
+                        "201":{"description": "ok"},
+                        "409":{"description": "e-mail já cadastrado"},
+                        "500":{"description": "erro do servidor"}
+                    },
+                    "requestBody": {
+                        "content": {
+                            "application/json":{
+                                "schema": {"$ref": "#components/schemas/usuarios"
+                                  
+                                    },
+                                    "example":{
+                                        "nome":"nome do usuario",
+                                        "email":"exemplo@email.com",
+                                        "identidade":"cis ou trans",
+                                        "genero":"genero do usuario",
+                                        "sexualidade":"sexualidade do usuario",
+                                        "cidade":"cidade que usuario reside",
+                                        "senha":"senha criada pelo usuario"
+            
+            
+            
+            
+            
+            
+            
+                                    }
+                                  
+                                   
+                                }
+                                
+                            }
+                        }
+                        
+                       
+                    }
+                 
+                    
+                },      
+                "/usuarios/logar": {
+                    "post":{
+                        "sumary": "logar usuario",
+                        "description": "realiza o login via email e senha e retorna o JWT para autenticação de rotas",
+                        "tags": ["usuarios"],
+                        "responses":{
+                            "200":{"description": "ok"},
+                            "401":{"description": "senha incorreta"},
+                            "404":{"description": "e-mail não encontrado"},
+                            "500":{"description": "erro do servidor"}
+                        },
+                        "requestBody": {
+                            "content": {
+                                "application/json":{
+                                    "schema": {
+                                        "type": "object",
+                                        "properties":{
+                                          
+                                            "email":{"type": "string",
+                                                "required": "true"},
+                                                "senha":{"type": "string",
+                                                    "required": "true"}
+       
+                                      
+                                        },
+                                        "example":{
+                                            "email":"exemplo@email.com",
+                                           "senha":"senha do usuario"
+                                            
+                
+                
+                
+                
+                
+                
+                                        }
+                                      
+                                       
+                                    }
+                                    
+                                }
+                            }
+                        
+                   
+                           
+                        }
+                           
+                        }
+                     
+                        
+                    }, "/usuarios/infoUsuario": {
+                        "post":{
+                            "sumary": "inormações de usuario",
+                            "description": "retorna as informações de um usuario",
+                            "tags": ["usuarios"],
+                            "security": [{"bearerAuth":[]}],
+                            "responses":{
+                                "200":{"description": "ok"},
+                                "401":{"description": "não autorizado"},
+                                "404":{"description": "id não encontrado"},
+                                "500":{"description": "erro do servidor"}
+                            },
+                            "requestBody": {
+                                "content": {
+                                    "application/json":{
+                                        "schema": {
+                                            "type": "object",
+                                            "properties":{
+                                              
+                                                "email":{"type": "string",
+                                                    "required": "true"}
+                                                
+                                                
+                                                
+                                          
+                                            },
+                                            "example":{
+                                                "email":"email do usuario"
+                                            
+                    
+                    
+                    
+                    
+                    
+                    
+                                            }
+                                          
+                                           
+                                        }
+                                        
+                                    }
+                                }
+                            
+                       
+                               
+                            }
+                               
+                            }
+                         
+                            
+                        },
+                 
+                
+                "/usuarios/atualizar": {
+                    "patch":{
+                        "sumary": "atualizar usuario",
+                        "description": "atualiza informações de um usuario",
+                        "tags": ["usuarios"],
+                        "security": [{"bearerAuth":[]}],
+                        "responses":{
+                            "200":{"description": "ok"},
+                            "401":{"description": "não autorizado"},
+                            "404":{"description": "e-mail não encontrado"},
+                            "500":{"description": "erro do servidor"}
+                        },
+                        "requestBody": {
+                            "content": {
+                                "application/json":{
+                                    "schema": {
+                                        "type": "object",
+                                        "properties":{
+                                          
+                                            "email":{"type": "string",
+                                                "required": "true"},
+                                            "cidade":{"type": "string"},
+                                            "senhaAtual":{"type": "string"},
+                                            "senha":{"type": "string"}
+                                            
+                                            
+                                      
+                                        },
+                                        "example":{
+                                            "id":"email so usuario",
+                                           "cidade":"nova cidade que usuario reside",
+                                            "senhaAtual":"senha atual",
+                                            "senha":"nova senha criada pelo usuario"
+                
+                
+                
+                
+                
+                
+                
+                                        }
+                                      
+                                       
+                                    }
+                                    
+                                }
+                            }
+                        
+                           
+                        }
+                     
+                        
+                    }},
+                   
+
+
+                    "/usuarios/atualizar/:id": {
+                        "patch":{
+                            "sumary": "atualizar usuario",
+                            "description": "atualiza informações de um usuario",
+                            "tags": ["usuarios"],
+                            "security": [{"bearerAuth":[]}],
+                            "responses":{
+                                "200":{"description": "ok"},
+                                "401":{"description": "não autorizado"},
+                                "404":{"description": "email não encontrado"},
+                                "500":{"description": "erro do servidor"}
+                            },
+                            "requestBody": {
+                                "content": {
+                                    "application/json":{
+                                        "schema": {
+                                            "type": "object",
+                                            "properties":{
+                                              
+                                                "id":{"type": "string",
+                                                    "required": "true"}
+                                               
+                                                
+                                                
+                                          
+                                            },
+                                            "example":{
+                                                "id":"id so usuario"
+                                              
+                    
+                    
+                    
+                    
+                    
+                    
+                                            }
+                                          
+                                           
+                                        }
+                                        
+                                    }
+                                }
+                            
+                               
+                            }
+                    
+                            }
+                         
+                            
+                        },
+                        "/usuarios/resetarSenha": {
+                            "post":{
+                                "sumary": "resetar senha do usuario",
+                                "description": "cria uma nova senha e envia para o email do usuario",
+                                "tags": ["usuarios"],
+                                "responses":{
+                                    "200":{"description": "ok"},
+                        
+                                    "404":{"description": "e-mail não encontrado"},
+                                    "500":{"description": "erro do servidor"}
+                                },
+                                "requestBody": {
+                                    "content": {
+                                        "application/json":{
+                                            "schema": {
+                                                "type": "object",
+                                                "properties":{
+                                                  
+                                                    "email":{"type": "string",
+                                                        "required": "true"
+                                              
+                                                },
+                                                "example":{
+                                                    "email":"email do usuario"
+                                                 
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                                                }
+                                              
+                                               
+                                            }
+                                            
+                                        }
+                                    }
+                                
+                           
+                                   
+                                }
+                            
+                                   
+                                }
+                             
+                                
+                            }},
+                            "/usuarios/deletar": {
+                                "delete":{
+                                    "sumary": "deletar usuario",
+                                    "description": "deleta definitivamente as informações do usuario",
+                                    "tags": ["usuarios"],
+                                    "security": [{"bearerAuth":[]}],
+                                    "responses":{
+                                        "200":{"description": "ok"},
+                                        "401":{"description":"Não autorizado"},
+                            
+                                        "404":{"description": "e-mail não encontrado"},
+                                        "500":{"description": "erro do servidor"}
+                                    },
+                                    "requestBody": {
+                                        "content": {
+                                            "application/json":{
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties":{
+                                                      
+                                                        "email":{"type": "string",
+                                                            "required": "true"}
+                                                       
+                                                        
+                                                        
+                                                  
+                                                    },
+                                                    "example":{
+                                                        "email":"email do usuario"
+                                                      
+                            
+                            
+                            
+                            
+                            
+                            
+                                                    }
+                                                  
+                                                   
+                                                }
+                                                
+                                            }
+                                        }
+                                    
+                                       
+                                    }
+                                       
+                                    }
+                                 
+                                    
+                                },
+                                "/usuarios/deletar/:id": {
+                                    "delete":{
+                                        "sumary": "deletar usuario",
+                                        "description": "deleta definitivamente as informações do usuario",
+                                        "tags": ["usuarios"],
+                                        "security": [{"bearerAuth":[]}],
+                                        "responses":{
+                                            "200":{"description": "ok"},
+                                            "401":{"description":"Não autorizado"},
+                                            "404":{"description": "id não encontrado"},
+                                            "500":{"description": "erro do servidor"}
+                                        },
+                                        "requestBody": {
+                                            "content": {
+                                                "application/json":{
+                                                    "schema": {
+                                                        "type": "object",
+                                                        "properties":{
+                                                          
+                                                            "id":{"type": "string",
+                                                                "required": "true"}
+                                                           
+                                                            
+                                                   
+                                                      
+                                                        },
+                                                        "example":{
+                                                            "id":"id do usuario"
+                                                         
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                                        }
+                                                      
+                                                       
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        
+                                   
+                                           
+                                        }
+                                           
+                                        }
+                                     
+                                        
+                                },
+    
+
+
+                            "/ambulatorios": {
+                                "get":{
+                                    "sumary": "Listar ambulatórios",
+                                    "description": "Lista os ambulatórios cadastrados",
+                                    "tags": ["ambulatorios"]
+                                   
+                                    }
+                                    
+                                },
+                                "/ambulatorios/cadastrar": {
+                                    "post":{
+                                        "sumary": "cadastrar usuários",
+                                        "description": "cadastra um novo usuario",
+                                        "tags": ["ambulatorios"],
+                                        "responses":{
+                                            "201":{"description": "ok"},
+                                            "401":{"description": "Não autorizado"},
+                                            "409":{"description": "ambulatório já cadastrado"},
+                                            "500":{"description": "erro do servidor"}
+                                        },
+                                        "security": [{"bearerAuth":[]}],
+                                        "requestBody": {
+                                            "content": {
+                                                "application/json":{
+                                                    "schema": {"$ref": "#components/schemas/ambulatorios"
+                                                      
+                                                        },
+                                                        "example":
+                                                            {"nome": "nome do ambulatórios",
+                                                                "cidade": "cidade do ambulatórios",
+                                                                "bairro": "bairro do ambulatórios",
+                                                                "logradouro": "logradouro do ambulatórios",
+                                                                "numero": "numero do endereço",
+                                                                "telefone": "numero do telefone",
+                                                                "horarioFuncionamento": "horário de funcionamento do ambulatório",
+                                                                "especialidades": "[especialidades do ambulatórios]",
+                                                                "atendimentoOnline": "sim ou não",
+                                                                "observações": "observações opcionais",
+                                                               "criadoPor": "e-mail do usuário que está autenticado" }
+                
+                                                                
+                                                        
+                                                      
+                                                       
+                                                    }
+                                                    
+                                                }
+                                            }
+                                            
+                                           
+                                        }
+                                     
+                                        
+                                    },
+                                    "/ambulatorios/buscar": {
+                                        "post":{
+                                            "sumary": "buscar ambulatorio por cidade e especialidade",
+                                            "description": "retorna uma os ambulatorios que atendem a busca",
+                                            "tags": ["ambulatorios"],
+                                            "responses":{
+                                                "201":{"description": "ok"},
+                                            
+                                                "401":{"description": "nenhum ambulatorio encontrado"},
+                                                "500":{"description": "erro do servidor"}
+                                            },
+                                            "requestBody": {
+                                                "content": {
+                                                    "application/json":{
+                                                        "schema":  {
+                                                            "type": "object",
+                                                            "properties":{
+                                                              
+                                                                "cidade":{"type": "string",
+                                                                    "required": "true"},
+                                                                    "especialidade":{"type": "string",
+                                                                        "required": "true"}
+                                                               
+                                                                
+                                                                
+                                                          
+                                                            },
+                                                            "example":
+                                                                {
+                                                                    "cidade": "cidade em que busca atendimento",
+                                                                   
+                                                                    "especialidades": "especialidades que procura"
+                                                                  }
+                    
+                                                                    
+                                                            
+                                                          
+                                                           
+                                                        }
+                                                        
+                                                    }
+                                                }
+                                                
+                                               
+                                            }
+                                        }
+                                         
+                                            
+                                        } ,
+                                        "/ambulatorios/criadosPor": {
+                                            "post":{
+                                                "sumary": "ambulatorios cadastrados por usuario especifico",
+                                                "description": "retorna os ambulatorios cadastrados por um usuario especifico",
+                                                "tags": ["ambulatorios"],
+                                                "responses":{
+                                                    "201":{"description": "ok"},
+                                                
+                                                    "401":{"description": "nenhum ambulatorio encontrado"},
+                                                    "500":{"description": "erro do servidor"}
+                                                },
+                                                "security": [{"bearerAuth":[]}],
+                                                "requestBody": {
+                                                    "content": {
+                                                        "application/json":{
+                                                            "schema":  {
+                                                                "type": "object",
+                                                                "properties":{
+                                                                  
+                                                                    "email":{"type": "string",
+                                                                        "required": "true"}
+                                                                       
+                                                                    
+                                                                    
+                                                              
+                                                                },
+                                                                "example":
+                                                                    {
+                                                                        "email": "email do usuario"
+                                                                       
+                                                                       
+                                                                      }
+                        
+                                                                        
+                                                                
+                                                              
+                                                               
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                    
+                                                   
+                                                }
+                                            }
+                                             
+                                                
+                                            } ,
+                                        "/ambulatorios/atualizar": {
+                                            "patch":{
+                                                "sumary": "atualizar ambulatorio",
+                                                "description": "atualiza as informações do ambulatorio",
+                                                "tags": ["ambulatorios"],
+                                                "security": [{"bearerAuth":[]}],
+                                                "responses":{
+                                                    "200":{"description": "ok"},
+                                                    "401":{"description":"Não autorizado"},
+                                                    "404":{"description": "id não encontrado"},
+                                                    "500":{"description": "erro do servidor"}
+                                                },
+                                                "requestBody": {
+                                                    "content": {
+                                                        "application/json":{
+                                                            "schema": {
+                                                                "type": "object",
+                                                                "properties":{
+                                                                  
+                                                                    "nome":{"type": "string",
+                                                                        "required": "true"},
+                                                                        "bairro":{"type": "string"},
+                                                                        "logradouro":{"type": "string"},
+                                                                        "numero":{"type": "string"},
+                                                                        "horarioFuncionamento":{"type": "string"},
+                                                                        "telefone":{"type": "string"},
+                                                                        "atendimentoOnline":{"type": "string"},
+                                                                        "especialidades": {"type": "array"},
+                                                                        "observacoes":{"type": "string"}
+                                                                   
+                                                                    
+                                                           
+                                                              
+                                                                },
+                                                                "example":{
+                                                                    "nome":"nome do ambulatorio",
+                                                                    "bairro": "novo bairro do ambulatórios",
+                                                                    "logradouro": "novo logradouro do ambulatórios",
+                                                                    "numero": "novo numero do endereço",
+                                                                    "telefone":"novo telefone",
+                                                                    "horarioFuncionamento": "novo horário de funcionamento do ambulatório",
+                                                                    "atendimentoOnline": "sim ou não",
+                                                                    "especialidades": "[novas especialidades do ambulatórios]",
+                                                                    "observações": "observações opcionais"
+                                                                
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                                }
+                                                              
+                                                               
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                
+                                           
+                                                   
+                                                }
+                                                   
+                                                }
+                                             
+                                                
+                                        },
+                                        
+                                        "/ambulatorios/atualizar/:id": {
+                                            "patch":{
+                                                "sumary": "atualizar ambulatorio",
+                                                "description": "atualiza as informações do ambulatorio",
+                                                "tags": ["ambulatorios"],
+                                                "security": [{"bearerAuth":[]}],
+                                                "responses":{
+                                                    "200":{"description": "ok"},
+                                                    "401":{"description":"Não autorizado"},
+                                                    "404":{"description": "id não encontrado"},
+                                                    "500":{"description": "erro do servidor"}
+                                                },
+                                                "requestBody": {
+                                                    "content": {
+                                                        "application/json":{
+                                                            "schema": {
+                                                                "type": "object",
+                                                                "properties":{
+                                                                  
+                                                                    "id":{"type": "string",
+                                                                        "required": "true"},
+                                                                        "bairro":{"type": "string"},
+                                                                        "logradouro":{"type": "string"},
+                                                                        "numero":{"type": "string"},
+                                                                        "horarioFuncionamento":{"type": "string"},
+                                                                        "telefone":{"type": "string"},
+                                                                        "atendimentoOnline":{"type": "string"},
+                                                                        "especialidades": {"type": "array"},
+                                                                        "observacoes":{"type": "string"}
+                                                                   
+                                                                    
+                                                           
+                                                              
+                                                                },
+                                                                "example":{
+                                                                    "id":"id do ambulatorio",
+                                                                    
+                                                                    "bairro": "novo bairro do ambulatórios",
+                                                                    "logradouro": "novo logradouro do ambulatórios",
+                                                                    "numero": "novo numero do endereço",
+                                                                    "telefone":"novo telefone",
+                                                                    "horarioFuncionamento": "novo horário de funcionamento do ambulatório",
+                                                                    "atendimentoOnline": "sim ou não",
+                                                                    "especialidades": "[novas especialidades do ambulatórios]",
+                                                                    "observações": "observações opcionais"
+                                                                
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                                }
+                                                              
+                                                               
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                
+                                           
+                                                   
+                                                }
+                                                   
+                                                }
+                                             
+                                                
+                                        },
+                                        "/ambulatorios/deletar": {
+                                            "delete":{
+                                                "sumary": "deletar ambulatorio",
+                                                "description": "deleta definitivamente as informações do ambulatorio",
+                                                "tags": ["ambulatorios"],
+                                                "security": [{"bearerAuth":[]}],
+                                                "responses":{
+                                                    "200":{"description": "ok"},
+                                                    "401":{"description":"Não autorizado"},
+                                                    "404":{"description": "id não encontrado"},
+                                                    "500":{"description": "erro do servidor"}
+                                                },
+                                                "requestBody": {
+                                                    "content": {
+                                                        "application/json":{
+                                                            "schema": {
+                                                                "type": "object",
+                                                                "properties":{
+                                                                  
+                                                                    "nome":{"type": "string",
+                                                                        "required": "true"}
+                                                                   
+                                                                    
+                                                           
+                                                              
+                                                                },
+                                                                "example":{
+                                                                    "nome":"nome do ambulatorio"
+                                                                 
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                                }
+                                                              
+                                                               
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                
+                                           
+                                                   
+                                                }
+                                                   
+                                                }
+                                             
+                                                
+                                        },
+                                        
+                                        "/ambulatorios/deletar/:id": {
+                                            "delete":{
+                                                "sumary": "deletar ambulatorio",
+                                                "description": "deleta definitivamente as informações do ambulatorio",
+                                                "tags": ["ambulatorios"],
+                                                "security": [{"bearerAuth":[]}],
+                                                "responses":{
+                                                    "200":{"description": "ok"},
+                                                    "401":{"description":"Não autorizado"},
+                                                    "404":{"description": "id não encontrado"},
+                                                    "500":{"description": "erro do servidor"}
+                                                },
+                                                "requestBody": {
+                                                    "content": {
+                                                        "application/json":{
+                                                            "schema": {
+                                                                "type": "object",
+                                                                "properties":{
+                                                                  
+                                                                    "id":{"type": "string",
+                                                                        "required": "true"}
+                                                                   
+                                                                    
+                                                           
+                                                              
+                                                                },
+                                                                "example":{
+                                                                    "id":"id do ambulatorio"
+                                                                 
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                                }
+                                                              
+                                                               
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                
+                                           
+                                                   
+                                                }
+                                                   
+                                                }
+                                             
+                                                
+                                        },
+                                        "/servicos": {
+                                            "get":{
+                                                "sumary": "Listar serviços",
+                                                "description": "Lista os serviços cadastrados",
+                                                "tags": ["servicos"]
+                                               
+                                                }
+                                                
+                                            },
+                                            "/servicos/cadastrar": {
+                                                "post":{
+                                                    "sumary": "cadastrar serviços",
+                                                    "description": "cadastra um novo serviço",
+                                                    "tags": ["servicos"],
+                                                    "responses":{
+                                                        "201":{"description": "ok"},
+                                                        "401":{"description": "Não autorizado"},
+                                                        "409":{"description": "serviço já cadastrado"},
+                                                        "500":{"description": "erro do servidor"}
+                                                    },
+                                                    "security": [{"bearerAuth":[]}],
+                                                    "requestBody": {
+                                                        "content": {
+                                                            "application/json":{
+                                                                "schema": {"$ref": "#components/schemas/servicos"
+                                                                  
+                                                                    },
+                                                                    "example":
+                                                                        {"nome": "nome do local",
+                                                                            "cidade": "cidade do serviço",
+                                                                            "tipoDeServico": "[serviços prestados no local]",
+                                                                            "bairro": "bairro do servico",
+                                                                            "logradouro": "logradouro do serviço",
+                                                                            "numero": "numero do endereço",
+                                                                            "telefone": "numero do telefone",
+                                                                            "horarioFuncionamento": "horário de funcionamento do serviço",
+                                                                            "atendimentoOnline": "sim ou não",
+                                                                            "observações": "observações opcionais",
+                                                                           "criadoPor": "e-mail do usuário que está autenticado" }
+                            
+                                                                            
+                                                                    
+                                                                  
+                                                                   
+                                                                }
+                                                                
+                                                            }
+                                                        }
+                                                        
+                                                       
+                                                    }
+                                                 
+                                                    
+                                                },
+                                                "/servicos/buscar": {
+                                                    "post":{
+                                                        "sumary": "buscar serviços por cidade",
+                                                        "description": "retorna uma os serviços que atendem a busca",
+                                                        "tags": ["servicos"],
+                                                        "responses":{
+                                                            "201":{"description": "ok"},
+                                                        
+                                                            "401":{"description": "nenhum serviço encontrado"},
+                                                            "500":{"description": "erro do servidor"}
+                                                        },
+                                                        "requestBody": {
+                                                            "content": {
+                                                                "application/json":{
+                                                                    "schema":  {
+                                                                        "type": "object",
+                                                                        "properties":{
+                                                                          
+                                                                            "cidade":{"type": "string",
+                                                                                "required": "true"}
+                                                                               
+                                                                           
+                                                                            
+                                                                            
+                                                                      
+                                                                        },
+                                                                        "example":
+                                                                            {
+                                                                                "cidade": "cidade em que busca serviços"
+                                                                               
+                                                                             
+                                                                              }
+                                
+                                                                                
+                                                                        
+                                                                      
+                                                                       
+                                                                    }
+                                                                    
+                                                                }
+                                                            }
+                                                            
+                                                           
+                                                        }
+                                                    }
+                                                     
+                                                        
+                                                    } ,
+                                                    "/servicos/criadosPor": {
+                                                        "post":{
+                                                            "sumary": "serviços cadastrados por usuario especifico",
+                                                            "description": "retorna os serviços cadastrados por um usuario especifico",
+                                                            "tags": ["servicos"],
+                                                            "responses":{
+                                                                "201":{"description": "ok"},
+                                                            
+                                                                "401":{"description": "nenhum serviço encontrado"},
+                                                                "500":{"description": "erro do servidor"}
+                                                            },
+                                                            "security": [{"bearerAuth":[]}],
+                                                            "requestBody": {
+                                                                "content": {
+                                                                    "application/json":{
+                                                                        "schema":  {
+                                                                            "type": "object",
+                                                                            "properties":{
+                                                                              
+                                                                                "email":{"type": "string",
+                                                                                    "required": "true"}
+                                                                                   
+                                                                                
+                                                                                
+                                                                          
+                                                                            },
+                                                                            "example":
+                                                                                {
+                                                                                    "email": "email do usuario"
+                                                                                   
+                                                                                   
+                                                                                  }
+                                    
+                                                                                    
+                                                                            
+                                                                          
+                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                                
+                                                               
+                                                            }
+                                                        }
+                                                         
+                                                            
+                                                        } ,
+                                                    "/servicos/atualizar": {
+                                                        "patch":{
+                                                            "sumary": "atualizar ambulatorio",
+                                                            "description": "atualiza as informações do ambulatorio",
+                                                            "tags": ["servicos"],
+                                                            "security": [{"bearerAuth":[]}],
+                                                            "responses":{
+                                                                "200":{"description": "ok"},
+                                                                "401":{"description":"Não autorizado"},
+                                                                "404":{"description": "id não encontrado"},
+                                                                "500":{"description": "erro do servidor"}
+                                                            },
+                                                            "requestBody": {
+                                                                "content": {
+                                                                    "application/json":{
+                                                                        "schema": {
+                                                                            "type": "object",
+                                                                            "properties":{
+                                                                              
+                                                                                "nome":{"type": "string",
+                                                                                    "required": "true"},
+                                                                                    "bairro":{"type": "string"},
+                                                                                    "logradouro":{"type": "string"},
+                                                                                    "numero":{"type": "string"},
+                                                                                    "horarioFuncionamento":{"type": "string"},
+                                                                                    "telefone":{"type": "string"},
+                                                                                    "atendimentoOnline":{"type": "string"},
+                                                                                    "observacoes":{"type": "string"}
+                                                                               
+                                                                                
+                                                                       
+                                                                          
+                                                                            },
+                                                                            "example":{
+                                                                                "nome":"nome do local",
+                                                                                "bairro": "novo bairro do serviço",
+                                                                                "logradouro": "novo logradouro do serviço",
+                                                                                "numero": "novo numero do endereço",
+                                                                                "telefone":"novo telefone",
+                                                                                "horarioFuncionamento": "novo horário de funcionamento do local",
+                                                                                "observações": "observações opcionais"
+                                                                            
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                                            }
+                                                                          
+                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                            
+                                                       
+                                                               
+                                                            }
+                                                               
+                                                            }
+                                                         
+                                                            
+                                                    },
+                                                    
+                                                    "/servico/atualizar/:id": {
+                                                        "patch":{
+                                                            "sumary": "atualizar serviço",
+                                                            "description": "atualiza as informações do serviço",
+                                                            "tags": ["servicos"],
+                                                            "security": [{"bearerAuth":[]}],
+                                                            "responses":{
+                                                                "200":{"description": "ok"},
+                                                                "401":{"description":"Não autorizado"},
+                                                                "404":{"description": "id não encontrado"},
+                                                                "500":{"description": "erro do servidor"}
+                                                            },
+                                                            "requestBody": {
+                                                                "content": {
+                                                                    "application/json":{
+                                                                        "schema": {
+                                                                            "type": "object",
+                                                                            "properties":{
+                                                                              
+                                                                                "id":{"type": "string",
+                                                                                    "required": "true"},
+                                                                                    "bairro":{"type": "string"},
+                                                                                    "logradouro":{"type": "string"},
+                                                                                    "numero":{"type": "string"},
+                                                                                    "horarioFuncionamento":{"type": "string"},
+                                                                                    "telefone":{"type": "string"},
+                                                                                    "atendimentoOnline":{"type": "string"},
+                                                                            
+                                                                                    "observacoes":{"type": "string"}
+                                                                               
+                                                                                
+                                                                       
+                                                                          
+                                                                            },
+                                                                            "example":{
+                                                                                "id":"id do serviço",
+                                                                                
+                                                                                "bairro": "novo bairro do serviço",
+                                                                                "logradouro": "novo logradouro do serviço",
+                                                                                "numero": "novo numero do endereço",
+                                                                                "telefone":"novo telefone",
+                                                                                "horarioFuncionamento": "novo horário de funcionamento do serviço",
+                                                                                "observações": "observações opcionais"
+                                                                            
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                                            }
+                                                                          
+                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                            
+                                                       
+                                                               
+                                                            }
+                                                               
+                                                            }
+                                                         
+                                                            
+                                                    },
+                                                    "/servicos/deletar": {
+                                                        "delete":{
+                                                            "sumary": "deletar serviço",
+                                                            "description": "deleta definitivamente as informações do serviço",
+                                                            "tags": ["servicos"],
+                                                            "security": [{"bearerAuth":[]}],
+                                                            "responses":{
+                                                                "200":{"description": "ok"},
+                                                                "401":{"description":"Não autorizado"},
+                                                                "404":{"description": "id não encontrado"},
+                                                                "500":{"description": "erro do servidor"}
+                                                            },
+                                                            "requestBody": {
+                                                                "content": {
+                                                                    "application/json":{
+                                                                        "schema": {
+                                                                            "type": "object",
+                                                                            "properties":{
+                                                                              
+                                                                                "nome":{"type": "string",
+                                                                                    "required": "true"}
+                                                                               
+                                                                                
+                                                                       
+                                                                          
+                                                                            },
+                                                                            "example":{
+                                                                                "nome":"nome do local"
+                                                                             
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                                            }
+                                                                          
+                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                            
+                                                       
+                                                               
+                                                            }
+                                                               
+                                                            }
+                                                         
+                                                            
+                                                    },
+                                                    
+                                                    "/servicos/deletar/:id": {
+                                                        "delete":{
+                                                            "sumary": "deletar serviço",
+                                                            "description": "deleta definitivamente as informações do serviço",
+                                                            "tags": ["ambulatorios"],
+                                                            "security": [{"bearerAuth":[]}],
+                                                            "responses":{
+                                                                "200":{"description": "ok"},
+                                                                "401":{"description":"Não autorizado"},
+                                                                "404":{"description": "id não encontrado"},
+                                                                "500":{"description": "erro do servidor"}
+                                                            },
+                                                            "requestBody": {
+                                                                "content": {
+                                                                    "application/json":{
+                                                                        "schema": {
+                                                                            "type": "object",
+                                                                            "properties":{
+                                                                              
+                                                                                "id":{"type": "string",
+                                                                                    "required": "true"}
+                                                                               
+                                                                                
+                                                                       
+                                                                          
+                                                                            },
+                                                                            "example":{
+                                                                                "id":"id do ambulatorio"
+                                                                             
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                                            }
+                                                                          
+                                                                           
+                                                                        }
+                                                                        
+                                                                    }
+                                                                }
+                                                            
+                                                       
+                                                               
+                                                            }
+                                                               
+                                                            }
+                                                         
+                                                            
+                                                    },
+
+
+                                                     "/especialidadesBaixoCusto": {
+                                                                    "get":{
+                                                                        "sumary": "Listar profissionais",
+                                                                        "description": "Lista os profissionais cadastrados",
+                                                                        "tags": ["especialidades de baixo custo"]
+                                                                       
+                                                                        }
+                                                                        
+                                                                    },
+                                                                    "/especialidadesBaixoCusto/cadastrar": {
+                                                                        "post":{
+                                                                            "sumary": "cadastrar  profissionais",
+                                                                            "description": "cadastra um novo  profissional",
+                                                                            "tags": ["especialidades de baixo custo"],
+                                                                            "responses":{
+                                                                                "201":{"description": "ok"},
+                                                                                "401":{"description": "Não autorizado"},
+                                                                                "500":{"description": "erro do servidor"}
+                                                                            },
+                                                                            "security": [{"bearerAuth":[]}],
+                                                                            "requestBody": {
+                                                                                "content": {
+                                                                                    "application/json":{
+                                                                                        "schema": {"$ref": "#components/schemas/especialidadesBaixoCusto"
+                                                                                          
+                                                                                            },
+                                                                                            "example":
+                                                                                                {"nome": "nome do profissional",
+                                                                                                    "cidade": "cidade do profissional",
+                                                                                                    "especialidade": "especialidade do profissional",
+                                                                                                    "bairro": "bairro do profissional",
+                                                                                                    "logradouro": "logradouro do profissional",
+                                                                                                    "numero": "numero do endereço",
+                                                                                                    "telefone": "numero do telefone",
+                                                                                                    "horarioFuncionamento": "horário de atendimento do profissional",
+                                                                                                     "atendimentoOnline": "sim ou não",
+                                                                                                    "observações": "observações opcionais",
+                                                                                                   "criadoPor": "e-mail do usuário que está autenticado" }
+                                                    
+                                                                                                    
+                                                                                            
+                                                                                          
+                                                                                           
+                                                                                        }
+                                                                                        
+                                                                                    }
+                                                                                }
+                                                                                
+                                                                               
+                                                                            }
+                                                                         
+                                                                            
+                                                                        },
+                                                                        "/especialidadesBaixoCusto/buscar": {
+                                                                            "post":{
+                                                                                "sumary": "buscar profissionais por cidade  eespecialidade",
+                                                                                "description": "retorna uma lista de prosissionais que atendem a busca",
+                                                                                "tags": ["especialidades de baixo custo"],
+                                                                                "responses":{
+                                                                                    "201":{"description": "ok"},
+                                                                                
+                                                                                    "401":{"description": "nenhum profissional encontrado"},
+                                                                                    "500":{"description": "erro do servidor"}
+                                                                                },
+                                                                                "requestBody": {
+                                                                                    "content": {
+                                                                                        "application/json":{
+                                                                                            "schema":  {
+                                                                                                "type": "object",
+                                                                                                "properties":{
+                                                                                                  
+                                                                                                    "cidade":{"type": "string",
+                                                                                                        "required": "true"},
+                                                                                                        "especialidade":{"type": "string",
+                                                                                                            "required": "true"}
+                                                                                                       
+                                                                                                   
+                                                                                                    
+                                                                                                    
+                                                                                              
+                                                                                                },
+                                                                                                "example":
+                                                                                                    {
+                                                                                                        "cidade": "cidade em que busca profissionais",
+                                                                                                        "especialidade": "especialidade buscada"
+                                                                                                       
+                                                                                                     
+                                                                                                      }
+                                                        
+                                                                                                        
+                                                                                                
+                                                                                              
+                                                                                               
+                                                                                            }
+                                                                                            
+                                                                                        }
+                                                                                    }
+                                                                                    
+                                                                                   
+                                                                                }
+                                                                            }
+                                                                             
+                                                                                
+                                                                            } ,
+                                                                            "/especialidadesBaixoCusto/criadosPor": {
+                                                                                "post":{
+                                                                                    "sumary": "profissionais cadastrados por usuario especifico",
+                                                                                    "description": "retorna os profissionais cadastrados por um usuario especifico",
+                                                                                    "tags": ["especialidades de baixo custo"],
+                                                                                    "responses":{
+                                                                                        "201":{"description": "ok"},
+                                                                                    
+                                                                                        "401":{"description": "nenhum profissional encontrado"},
+                                                                                        "500":{"description": "erro do servidor"}
+                                                                                    },
+                                                                                    "security": [{"bearerAuth":[]}],
+                                                                                    "requestBody": {
+                                                                                        "content": {
+                                                                                            "application/json":{
+                                                                                                "schema":  {
+                                                                                                    "type": "object",
+                                                                                                    "properties":{
+                                                                                                      
+                                                                                                        "email":{"type": "string",
+                                                                                                            "required": "true"}
+                                                                                                           
+                                                                                                        
+                                                                                                        
+                                                                                                  
+                                                                                                    },
+                                                                                                    "example":
+                                                                                                        {
+                                                                                                            "email": "email do usuario"
+                                                                                                           
+                                                                                                           
+                                                                                                          }
+                                                            
+                                                                                                            
+                                                                                                    
+                                                                                                  
+                                                                                                   
+                                                                                                }
+                                                                                                
+                                                                                            }
+                                                                                        }
+                                                                                        
+                                                                                       
+                                                                                    }
+                                                                                }
+                                                                                 
+                                                                                    
+                                                                                } ,
+                                                                         
+                                                                            
+                                                                            "/especialidadesBaixoCusto/atualizar/:id": {
+                                                                                "patch":{
+                                                                                    "sumary": "atualizar profissional",
+                                                                                    "description": "atualiza as informações de um profissional",
+                                                                                    "tags": ["especialidades de baixo custo"],
+                                                                                    "security": [{"bearerAuth":[]}],
+                                                                                    "responses":{
+                                                                                        "200":{"description": "ok"},
+                                                                                        "401":{"description":"Não autorizado"},
+                                                                                        "404":{"description": "id não encontrado"},
+                                                                                        "500":{"description": "erro do servidor"}
+                                                                                    },
+                                                                                    "requestBody": {
+                                                                                        "content": {
+                                                                                            "application/json":{
+                                                                                                "schema": {
+                                                                                                    "type": "object",
+                                                                                                    "properties":{
+                                                                                                      
+                                                                                                        "id":{"type": "string",
+                                                                                                            "required": "true"},
+                                                                                                            "bairro":{"type": "string"},
+                                                                                                            "logradouro":{"type": "string"},
+                                                                                                            "numero":{"type": "string"},
+                                                                                                            "horarioFuncionamento":{"type": "string"},
+                                                                                                            "telefone":{"type": "string"},
+                                                                                                            "atendimentoOnline":{"type": "string"},
+                                                                                                    
+                                                                                                            "observacoes":{"type": "string"}
+                                                                                                       
+                                                                                                        
+                                                                                               
+                                                                                                  
+                                                                                                    },
+                                                                                                    "example":{
+                                                                                                        "id":"id do profissional",
+                                                                                                        
+                                                                                                        "bairro": "novo bairro do  profissional",
+                                                                                                        "logradouro": "novo logradouro do  profissional",
+                                                                                                        "numero": "novo numero do endereço",
+                                                                                                        "telefone":"novo telefone",
+                                                                                                        "horarioFuncionamento": "novo horário de atendimento do  profissional",
+                                                                                                        "observações": "observações opcionais"
+                                                                                                    
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                                                    }
+                                                                                                  
+                                                                                                   
+                                                                                                }
+                                                                                                
+                                                                                            }
+                                                                                        }
+                                                                                    
+                                                                               
+                                                                                       
+                                                                                    }
+                                                                                       
+                                                                                    }
+                                                                                 
+                                                                                    
+                                                                            },
+                                                                                
+                                                                            
+                                                                            "/especialidadesBaixoCusto/deletar/:id": {
+                                                                                "delete":{
+                                                                                    "sumary": "deletar profissional",
+                                                                                    "description": "deleta definitivamente as informações de um profissional",
+                                                                                    "tags": ["especialidades de baixo custo"],
+                                                                                    "security": [{"bearerAuth":[]}],
+                                                                                    "responses":{
+                                                                                        "200":{"description": "ok"},
+                                                                                        "401":{"description":"Não autorizado"},
+                                                                                        "404":{"description": "id não encontrado"},
+                                                                                        "500":{"description": "erro do servidor"}
+                                                                                    },
+                                                                                    "requestBody": {
+                                                                                        "content": {
+                                                                                            "application/json":{
+                                                                                                "schema": {
+                                                                                                    "type": "object",
+                                                                                                    "properties":{
+                                                                                                      
+                                                                                                        "id":{"type": "string",
+                                                                                                            "required": "true"}
+                                                                                                       
+                                                                                                        
+                                                                                               
+                                                                                                  
+                                                                                                    },
+                                                                                                    "example":{
+                                                                                                        "id":"id do profissional"
+                                                                                                     
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                                                    }
+                                                                                                  
+                                                                                                   
+                                                                                                }
+                                                                                                
+                                                                                            }
+                                                                                        }
+                                                                                    
+                                                                               
+                                                                                       
+                                                                                    }
+                                                                                       
+                                                                                    }
+                                                                                 
+                                                                                    
+                                                                            }
+                                                             
+                                     
+                         
+
+               
+                 
+             
+         
+
+    },  
+      "components":{
+        "schemas":{
+            "usuarios":{
+                "type": "object",
+                "properties":{
+                    "_id": {"type": "mongoose object id"},
+                    "nome":{"type": "string","required": "true"},
+                    "email":{"type": "string","required": "true"},
+                    "identidade":{"type": "string","required": "true"},
+                    "genero":{"type": "string", "required": "true"},
+                    "sexualidade":{"type": "string", "required": "true"},
+                    "cidade":{"type": "string", "required": "true"},
+                    "senha":{"type": "string","required": "true"},
+                    "criadoEm":{"type": "date"}
+                    
+                }
+            },
+            "ambulatorios":{
+                "type": "object",
+                "properties":{
+                    "_id": {"type": "mongoose object id"},
+                    "nome":{"type": "string","required": "true"},
+                    "cidade":{"type": "string","required": "true"},
+                    "bairro":{"type": "string","required": "true"},
+                    "logradouro":{"type": "string","required": "true"},
+                    "numero":{"type": "string","required": "true"},
+                    "horarioFuncionamento":{"type": "string","required": "true"},
+                    "telefone":{"type": "string","required": "true"},
+                    "atendimentoOnline":{"type": "string", "required": "true"},
+                    "especialidades": {"type": "array","required": "true"},
+                    "observacoes":{"type": "string"},
+                    "criadoPor":{"type": "string","required": "true"},
+                    "criadoEm":{"type": "date"}
+                    
+                }
+            },
+            "servicos":{
+                "type": "object",
+                "properties":{
+                    "_id": {"type": "mongoose object id"},
+                    "nome":{"type": "string","required": "true"},
+                    "tipoDeServico": {"type": "array","required": "true"},
+                    "cidade":{"type": "string","required": "true"},
+                    "bairro":{"type": "string","required": "true"},
+                    "logradouro":{"type": "string","required": "true"},
+                    "numero":{"type": "string","required": "true"},
+                    "horarioFuncionamento":{"type": "string","required": "true"},
+                    "telefone":{"type": "string","required": "true"},
+                    "atendimentoOnline":{"type": "string", "required": "true"},
+                    "observacoes":{"type": "string"},
+                    "criadoPor":{"type": "string","required": "true"},
+                    "criadoEm":{"type": "date"}
+                    
+                }
+            },
+            "especialidadesBaixoCusto":{
+                "type": "object",
+                "properties":{
+                    "_id": {"type": "mongoose object id"},
+                    "nome":{"type": "string","required": "true"},
+                    "especialidade": {"type": "array","required": "true"},
+                    "cidade":{"type": "string","required": "true"},
+                    "bairro":{"type": "string","required": "true"},
+                    "logradouro":{"type": "string","required": "true"},
+                    "numero":{"type": "string","required": "true"},
+                    "horarioFuncionamento":{"type": "string","required": "true"},
+                    "telefone":{"type": "string","required": "true"},
+                    "atendimentoOnline":{"type": "string", "required": "true"},
+                    "observacoes":{"type": "string"},
+                    "criadoPor":{"type": "string","required": "true"},
+                    "criadoEm":{"type": "date"}
+                    
+                }
+            }
+           
+        },
+        "securitySchemes":{
+            "bearerAuth":{
+                "type":"http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"}
+        }
+       
+      
+    }
+
+
+
+
+  }
+
+
+

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors')
-
+const swaggerUi = require('swagger-ui-express');
+const swaggerJson = require('./swagger.json')
 
 const app = express();
 app.use(express.json())
@@ -15,7 +16,7 @@ const ambulatorios = require('./routes/ambulatorios_routes')
 const especialidadesBaixoCusto = require('./routes/especialidadeBaixoCustoRoutes')
 const index = require('./routes/index')
 
-
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerJson))
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*") 
     res.header(
