@@ -315,21 +315,17 @@
                                                     "email":{"type": "string",
                                                         "required": "true"
                                               
-                                                },
-                                                "example":{
-                                                    "email":"email do usuario"
-                                                 
-                        
-                        
-                        
-                        
-                        
-                        
-                        
                                                 }
                                               
                                                
+                                            },
+                                            "example":{
+                                                "email":"email do usuario"
+                                             
+                                         
+                                                         
                                             }
+                                          
                                             
                                         }
                                     }
